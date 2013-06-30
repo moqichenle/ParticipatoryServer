@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<servlet>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+		<init-param>
+			<param-name>services</param-name>
+			<param-value>ie.tcd.scss.dsg.particpatory.DeviceInfoEndpoint,ie.tcd.scss.dsg.particpatory.MessageEndpoint</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<url-pattern>/_ah/spi/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- test -->
+	<servlet>
+		<servlet-name>CreateNewUser</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.test.TestUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateNewUser</servlet-name>
+		<url-pattern>/newuser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CreateNewReport</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.test.TestReport</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateNewReport</servlet-name>
+		<url-pattern>/newreport</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ReportList</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.test.TestGetReport</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReportList</servlet-name>
+		<url-pattern>/reportlist</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AddTask</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.test.AddTask</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddTask</servlet-name>
+		<url-pattern>/addtask</url-pattern>
+	</servlet-mapping>
+	<!-- test -->
+</web-app>
