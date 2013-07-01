@@ -43,9 +43,7 @@ public class TestUser extends HttpServlet {
 
 		StorageManager sm = new StorageManager();
 		user = (User) sm.add(user);
-		resp.getWriter().write(
-				"you boy!!!!!!!!!!!!can we get the id?"
-						+ user.getUserId());
+		resp.getWriter().write(user.getUserId().toString());
 	}
 
 }
