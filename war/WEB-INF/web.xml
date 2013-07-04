@@ -17,24 +17,26 @@
 		<url-pattern>/_ah/spi/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- test -->
+	<!-- servlet -->
 	<servlet>
 		<servlet-name>CreateNewUser</servlet-name>
-		<servlet-class>ie.tcd.scss.dsg.test.TestUser</servlet-class>
+		<servlet-class>ie.tcd.scss.dsg.servlet.AddUser</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CreateNewUser</servlet-name>
 		<url-pattern>/newuser</url-pattern>
 	</servlet-mapping>
-	
 	<servlet>
 		<servlet-name>CreateNewReport</servlet-name>
-		<servlet-class>ie.tcd.scss.dsg.test.TestReport</servlet-class>
+		<servlet-class>ie.tcd.scss.dsg.servlet.AddReport</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CreateNewReport</servlet-name>
 		<url-pattern>/newreport</url-pattern>
 	</servlet-mapping>
+	<!-- servlet -->
+	
+	<!-- test -->
 	<servlet>
 		<servlet-name>ReportList</servlet-name>
 		<servlet-class>ie.tcd.scss.dsg.test.TestGetReport</servlet-class>
