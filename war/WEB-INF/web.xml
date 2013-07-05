@@ -42,6 +42,15 @@
 		<servlet-name>ReportListForCertainUser</servlet-name>
 		<url-pattern>/reportlistofuser</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ReportDetail</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.ReportDetail</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReportDetail</servlet-name>
+		<url-pattern>/reportdetail</url-pattern>
+	</servlet-mapping>
+	
 	<!-- servlet -->
 	
 	<!-- test -->

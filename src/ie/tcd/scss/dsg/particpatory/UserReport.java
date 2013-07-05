@@ -57,4 +57,11 @@ public class UserReport {
 		List<Report> list = (List<Report>) sm.getAll(query);
 		return list;
 	}
+	
+	public Report certainReport(long reportId){
+		String query = "select r from Report r where r.reportId="+reportId;
+		@SuppressWarnings("unchecked")
+		List<Report> list = (List<Report>) sm.getAll(query);
+		return list.get(0);
+	}
 }
