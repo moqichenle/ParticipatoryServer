@@ -34,15 +34,23 @@
 		<servlet-name>CreateNewReport</servlet-name>
 		<url-pattern>/newreport</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ReportListForCertainUser</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.ReportListofUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReportListForCertainUser</servlet-name>
+		<url-pattern>/reportlistofuser</url-pattern>
+	</servlet-mapping>
 	<!-- servlet -->
 	
 	<!-- test -->
 	<servlet>
-		<servlet-name>ReportList</servlet-name>
+		<servlet-name>ReportListTest</servlet-name>
 		<servlet-class>ie.tcd.scss.dsg.test.TestGetReport</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ReportList</servlet-name>
+		<servlet-name>ReportListTest</servlet-name>
 		<url-pattern>/reportlist</url-pattern>
 	</servlet-mapping>
 	<servlet>

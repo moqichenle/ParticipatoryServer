@@ -45,4 +45,16 @@ public class UserReport {
 		List<Report> list = (List<Report>) sm.getAll(query);
 		return list;
 	}
+	
+	/**
+	 * get certain user's reports
+	 * @param userId
+	 * @return
+	 */
+	public List<Report> reportFromCertainUser(long userId){
+		String query = "select r from Report r where r.userId="+userId;
+		@SuppressWarnings("unchecked")
+		List<Report> list = (List<Report>) sm.getAll(query);
+		return list;
+	}
 }
