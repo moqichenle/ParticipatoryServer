@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.Blob;
 import com.google.gson.Gson;
 
 public class AddReport extends HttpServlet {
@@ -44,24 +45,28 @@ public class AddReport extends HttpServlet {
 				Location location = new Location();
 				location = reportFromApp.getUser().getLocation();
 				
-				report.setCategoryId(reportFromApp.getCategoryId());
-				report.setContend(reportFromApp.getContend());
-				report.setLatitude(location.getLatitude());
-				report.setLongitude(location.getLongitude());
-				report.setReportTime(System.currentTimeMillis());
-				report.setUserId(userId);
-				
-				System.out.println("new report from user " + userId + " ^-^");
-				UserReport ur = new UserReport();
-				ur.saveReport(report);
-				
-				
 				//update user's context
 				User newUser = new User();
 				newUser = reportFromApp.getUser();
 				System.out.println("get user updates!");
 				UserManagement um = new UserManagement();
 				um.updateContext(newUser);
+				//store report
+				report.setCategoryId(reportFromApp.getCategoryId());
+				report.setContend(reportFromApp.getContend());
+				report.setLatitude(location.getLatitude());
+				report.setLongitude(location.getLongitude());
+				report.setReportTime(System.currentTimeMillis());
+				report.setUserId(userId);
+				report.setStreetName(newUser.getStreetName());
+				report.setAttachment(new Blob(reportFromApp.getAttachment()));
+				
+				System.out.println("new report from user " + userId + " ^-^");
+				UserReport ur = new UserReport();
+				ur.saveReport(report);
+				
+				
+				
 				
 				resp.setStatus(200);
 			} catch (Exception e) {

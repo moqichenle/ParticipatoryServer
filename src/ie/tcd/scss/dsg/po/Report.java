@@ -1,9 +1,12 @@
 package ie.tcd.scss.dsg.po;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.google.appengine.api.datastore.Blob;
 
 /**
  * 
@@ -24,8 +27,9 @@ public class Report {
 	private long reportTime;
 	private double latitude;
 	private double longitude;
-	private byte[] attachment;
-
+	@Basic
+	private Blob attachment;
+	private String streetName;
 	
 
 	public Long getReportId() {
@@ -84,12 +88,21 @@ public class Report {
 		this.longitude = longitude;
 	}
 
-	public byte[] getAttachment() {
+
+	public Blob getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(byte[] attachment) {
+	public void setAttachment(Blob attachment) {
 		this.attachment = attachment;
+	}
+
+	public String getStreetName() {
+		return streetName;
+	}
+
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
 	}
 
 }
