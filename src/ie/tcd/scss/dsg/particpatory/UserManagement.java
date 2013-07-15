@@ -157,7 +157,7 @@ public class UserManagement {
 	 * @return
 	 */
 	public List<Query> queryFromCertainUser(long userId) {
-		String query = "select r from Query q where q.userId=" + userId;
+		String query = "select q from Query q where q.userId=" + userId;
 		@SuppressWarnings("unchecked")
 		List<Query> list = (List<Query>) sm.getAll(query);
 		return list;
@@ -170,7 +170,7 @@ public class UserManagement {
 	 * @return
 	 */
 	public Query certainQuery(long queryId) {
-		String query = "select r from Query q where q.queryId=" + queryId;
+		String query = "select q from Query q where q.queryId=" + queryId;
 		@SuppressWarnings("unchecked")
 		List<Query> list = (List<Query>) sm.getAll(query);
 		return list.get(0);

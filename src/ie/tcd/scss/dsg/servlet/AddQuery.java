@@ -37,6 +37,7 @@ public class AddQuery extends HttpServlet {
 			query = gson.fromJson(reader, Query.class);
 			UserManagement um = new UserManagement();
 			um.addQuery(query);
+			
 			resp.setStatus(200);
 		}
 	}
