@@ -50,7 +50,38 @@
 		<servlet-name>ReportDetail</servlet-name>
 		<url-pattern>/reportdetail</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+		<servlet-name>QueryListForCertainUser</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.QueryListofUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryListForCertainUser</servlet-name>
+		<url-pattern>/queryofuser</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UpdateUserContext</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.UpdateUserContext</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateUserContext</servlet-name>
+		<url-pattern>/updateuser</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CreateNewQuery</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.AddQuery</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateNewQuery</servlet-name>
+		<url-pattern>/newquery</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>QueryDetail</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.QueryDetail</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryDetail</servlet-name>
+		<url-pattern>/querydetail</url-pattern>
+	</servlet-mapping>
 	<!-- servlet -->
 	
 	<!-- test -->

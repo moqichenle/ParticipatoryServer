@@ -1,10 +1,10 @@
 package ie.tcd.scss.dsg.servlet;
 
-import ie.tcd.scss.dsg.particpatory.UserReport;
-import ie.tcd.scss.dsg.po.Report;
-import ie.tcd.scss.dsg.po.ReportFromApp;
+import ie.tcd.scss.dsg.particpatory.UserManagement;
+import ie.tcd.scss.dsg.po.Query;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-public class ReportDetail extends HttpServlet {
+public class QueryListofUser extends HttpServlet {
 
 	/**
 	 * 
@@ -29,23 +29,15 @@ public class ReportDetail extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String reportId = req.getParameter("reportId");
-		UserReport ur = new UserReport();
-		Report report = ur.certainReport(Long.valueOf(reportId));
-		ReportFromApp toapp = new ReportFromApp();
-		toapp.setCategoryId(report.getCategoryId());
-		toapp.setContend(report.getContend());
-		toapp.setReportId(report.getReportId());
-		toapp.setReportTime(report.getReportTime());
-		toapp.setStreetName(report.getStreetName());
-		toapp.setAttachment(report.getAttachment().getBytes());
-		toapp.setUser(null);
-		toapp.setUserId(report.getUserId());
+		String userId = req.getParameter("userId");
+		UserManagement um = new UserManagement();
+		List<Query> queryList = um.queryFromCertainUser(Long.valueOf(userId));
 		Gson gson = new Gson();
-		String json = gson.toJson(toapp);
+		String json = gson.toJson(queryList);
 		resp.setContentType("application/json");
 		resp.getWriter().write(json);
 		resp.setStatus(200);
 	}
 
+	
 }

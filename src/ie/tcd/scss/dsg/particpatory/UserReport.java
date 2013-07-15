@@ -58,6 +58,11 @@ public class UserReport {
 		return list;
 	}
 	
+	/**
+	 * get a detailed report
+	 * @param reportId
+	 * @return
+	 */
 	public Report certainReport(long reportId){
 		String query = "select r from Report r where r.reportId="+reportId;
 		@SuppressWarnings("unchecked")

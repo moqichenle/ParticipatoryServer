@@ -89,11 +89,19 @@ public class StorageManager {
 		if (user.getAcceptPercent() != newUser.getAcceptPercent()) {
 			user.setAcceptPercent(newUser.getAcceptPercent());
 		}
-		user.setAverCycleSpeed(newUser.getAverCycleSpeed());
-		user.setAverDriveSpeed(newUser.getAverDriveSpeed());
-		user.setAverWalkSpeed(newUser.getAverWalkSpeed());
+		if(user.getAverCycleSpeed()!=newUser.getAverCycleSpeed()){
+			user.setAverCycleSpeed(newUser.getAverCycleSpeed());
+		}
+		if(user.getAverDriveSpeed()!=newUser.getAverDriveSpeed()){
+			user.setAverDriveSpeed(newUser.getAverDriveSpeed());
+		}
+		if(user.getAverWalkSpeed()!=newUser.getAverWalkSpeed()){
+			user.setAverWalkSpeed(newUser.getAverWalkSpeed());
+		}
+		if(user.getMode()!=newUser.getMode()){
+			user.setMode(newUser.getMode());
+		}
 		user.setLocation(newUser.getLocation());
-		user.setMode(newUser.getMode());
 		user.setStreetName(newUser.getStreetName());
 		user.setUpdatedTime(System.currentTimeMillis());
 		em.getTransaction().commit();

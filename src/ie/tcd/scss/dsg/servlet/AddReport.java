@@ -38,20 +38,21 @@ public class AddReport extends HttpServlet {
 			try {
 				BufferedReader reader = req.getReader();
 				Gson gson = new Gson();
-				ReportFromApp reportFromApp = gson.fromJson(reader, ReportFromApp.class);
+				ReportFromApp reportFromApp = gson.fromJson(reader,
+						ReportFromApp.class);
 				Long userId = reportFromApp.getUserId();
-				Report report= new Report();
+				Report report = new Report();
 
 				Location location = new Location();
 				location = reportFromApp.getUser().getLocation();
-				
-				//update user's context
+
+				// update user's context
 				User newUser = new User();
 				newUser = reportFromApp.getUser();
 				System.out.println("get user updates!");
 				UserManagement um = new UserManagement();
 				um.updateContext(newUser);
-				//store report
+				// store report
 				report.setCategoryId(reportFromApp.getCategoryId());
 				report.setContend(reportFromApp.getContend());
 				report.setLatitude(location.getLatitude());
@@ -60,14 +61,10 @@ public class AddReport extends HttpServlet {
 				report.setUserId(userId);
 				report.setStreetName(newUser.getStreetName());
 				report.setAttachment(new Blob(reportFromApp.getAttachment()));
-				
-				System.out.println("new report from user " + userId + " ^-^");
+
 				UserReport ur = new UserReport();
 				ur.saveReport(report);
-				
-				
-				
-				
+
 				resp.setStatus(200);
 			} catch (Exception e) {
 				// crash and burn

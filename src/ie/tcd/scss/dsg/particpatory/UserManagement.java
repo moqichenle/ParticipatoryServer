@@ -1,9 +1,10 @@
 package ie.tcd.scss.dsg.particpatory;
 
-import java.util.List;
-
 import ie.tcd.scss.dsg.po.Location;
+import ie.tcd.scss.dsg.po.Query;
 import ie.tcd.scss.dsg.po.User;
+
+import java.util.List;
 
 import com.google.appengine.api.search.GeoPoint;
 
@@ -62,13 +63,12 @@ public class UserManagement {
 			byte sensorType, double searchrange) {
 
 		/*
-		 * for every user,check it's location is inside the range.
-		 * using ifUserInRange.
-		 * select all the users whose current location is inside a certain range
-		 * select all the users whose current location is outside the first range, but inside a bigger range.
+		 * for every user,check it's location is inside the range. using
+		 * ifUserInRange. select all the users whose current location is inside
+		 * a certain range select all the users whose current location is
+		 * outside the first range, but inside a bigger range.
 		 * 
-		 * ?? 
-		 * when to estimate the user's location?
+		 * ?? when to estimate the user's location?
 		 */
 		return null;
 	}
@@ -137,5 +137,42 @@ public class UserManagement {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * add new user query
+	 * 
+	 * @param query
+	 */
+	public void addQuery(Query query) {
+		sm.add(query);
+		//TODO when a new query comes, should check if there is any reply corresponding to the query.
+		
+	}
+
+	/**
+	 * get certain user's queries
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public List<Query> queryFromCertainUser(long userId) {
+		String query = "select r from Query q where q.userId=" + userId;
+		@SuppressWarnings("unchecked")
+		List<Query> list = (List<Query>) sm.getAll(query);
+		return list;
+	}
+
+	/**
+	 * get a detailed query
+	 * 
+	 * @param reportId
+	 * @return
+	 */
+	public Query certainQuery(long queryId) {
+		String query = "select r from Query q where q.queryId=" + queryId;
+		@SuppressWarnings("unchecked")
+		List<Query> list = (List<Query>) sm.getAll(query);
+		return list.get(0);
 	}
 }

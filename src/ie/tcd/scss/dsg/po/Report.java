@@ -88,7 +88,6 @@ public class Report {
 		this.longitude = longitude;
 	}
 
-
 	public Blob getAttachment() {
 		return attachment;
 	}
