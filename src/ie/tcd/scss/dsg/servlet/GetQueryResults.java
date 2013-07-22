@@ -1,5 +1,6 @@
 package ie.tcd.scss.dsg.servlet;
 
+import ie.tcd.scss.dsg.particpatory.TaskDelivery;
 import ie.tcd.scss.dsg.particpatory.TaskManagement;
 import ie.tcd.scss.dsg.particpatory.UserManagement;
 import ie.tcd.scss.dsg.particpatory.UserReport;
@@ -31,13 +32,13 @@ public class GetQueryResults extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		doGet(req, resp);
+		doPost(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String queryId = "";
+		String queryId = req.getParameter("queryId");
 		UserManagement um = new UserManagement();
 		Query q = um.certainQuery(Long.valueOf(queryId));
 		UserReport ur = new UserReport();
@@ -58,6 +59,7 @@ public class GetQueryResults extends HttpServlet {
 			rtq.setTaskId(null);
 			rtq.setTaskComment(null);
 			rtq.setResultImage(null);
+			rtq.setCategoryId(r.getCategoryId());
 			results.add(rtq);
 		}
 		TaskManagement tm = new TaskManagement();
@@ -76,6 +78,7 @@ public class GetQueryResults extends HttpServlet {
 			rtq.setContent(null);
 			rtq.setReportId(null);
 			rtq.setTaskComment(null);
+			rtq.setCategoryId(t.getCategoryId());
 			results.add(rtq);
 		}
 		for (int k = 0; k < answerQuerySTasks.size(); k++) {
@@ -88,13 +91,22 @@ public class GetQueryResults extends HttpServlet {
 			rtq.setContent(null);
 			rtq.setReportId(null);
 			rtq.setResultImage(null);
+			rtq.setCategoryId(t.getCategoryId());
 			results.add(rtq);
 		}
-		//if no result, go to another servlet, assign tasks.
 		Gson gson = new Gson();
 		String json = gson.toJson(results);
 		resp.setContentType("application/json");
 		resp.getWriter().write(json);
+		if (results.size()==0) {
+			System.out.println("if no results towards a query:");
+			//assign tasks. TODO  and at the same time , add the assigning into database.
+			String device = "APA91bEJa5xiYJcfJt3mRNnmX-vvA_0vkHhbnXOr_Eh-ebf5tM3WzAAJJncnyr7so4nvshtprR2VPp0R9G2Y524hkrzc6cgIydMJ_mVLKJ_2oktVLhx3j9XAeuZ0W88-lJOYuNeJI_pONsTIZUMgyUar7N6ybYSM3A";
+			String message = "You have a task!";
+			TaskDelivery.assignTask(device,message);
+		}
 		resp.setStatus(200);
+		
+
 	}
 }

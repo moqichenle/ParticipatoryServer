@@ -39,8 +39,8 @@ public class UserReport {
 	public List<Report> answerQueryReports(byte categoryId, int withInSeconds) {
 
 		String query = "select r from Report r where r.categoryId ="
-				+ categoryId + " and r.reportTime <"
-				+ (System.currentTimeMillis() - withInSeconds);
+				+ categoryId + " and r.reportTime >"
+				+ (System.currentTimeMillis() - withInSeconds)+" and r.reportTime<"+System.currentTimeMillis();
 		@SuppressWarnings("unchecked")
 		List<Report> list = (List<Report>) sm.getAll(query);
 		return list;

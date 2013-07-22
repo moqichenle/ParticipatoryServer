@@ -146,8 +146,6 @@ public class UserManagement {
 	 */
 	public void addQuery(Query query) {
 		sm.add(query);
-		//TODO when a new query comes, should check if there is any reply corresponding to the query.
-		
 	}
 
 	/**
@@ -174,5 +172,20 @@ public class UserManagement {
 		@SuppressWarnings("unchecked")
 		List<Query> list = (List<Query>) sm.getAll(query);
 		return list.get(0);
+	}
+	
+	public String[] getRegisteredId(){
+		String query = "select u from User u";
+		@SuppressWarnings("unchecked")
+		List<User> user = (List<User>) sm.getAll(query);
+		if(user.size()!=0){
+			String[] ids = new String[user.size()];
+			for(int i=0;i<user.size();i++){
+				ids[i]=user.get(i).getRegisterId();
+			}
+			return ids;
+		}else{
+			return null;
+		}
 	}
 }

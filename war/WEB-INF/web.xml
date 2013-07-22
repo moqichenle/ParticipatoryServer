@@ -82,6 +82,14 @@
 		<servlet-name>QueryDetail</servlet-name>
 		<url-pattern>/querydetail</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>QueryResult</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.GetQueryResults</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryResult</servlet-name>
+		<url-pattern>/queryresults</url-pattern>
+	</servlet-mapping>
 	<!-- servlet -->
 	
 	<!-- test -->

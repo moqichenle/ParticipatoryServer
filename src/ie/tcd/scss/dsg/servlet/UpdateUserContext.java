@@ -31,11 +31,13 @@ public class UpdateUserContext extends HttpServlet {
 			throws ServletException, IOException {
 		if (req.getContentType().equals("application/json")) {
 			System.out.println("get updating user's context request");
+			
 			BufferedReader reader = req.getReader();
 			Gson gson = new Gson();
 			User user = new User();
 			user = gson.fromJson(reader, User.class);
 			UserManagement um = new UserManagement();
+			System.out.println(user.getUserId());
 			um.updateContext(user);
 			resp.setStatus(200);
 		}

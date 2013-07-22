@@ -86,21 +86,11 @@ public class StorageManager {
 		em = getEntityManager();
 		em.getTransaction().begin();
 		User user = em.find(User.class, newUser.getUserId());
-		if (user.getAcceptPercent() != newUser.getAcceptPercent()) {
-			user.setAcceptPercent(newUser.getAcceptPercent());
-		}
-		if(user.getAverCycleSpeed()!=newUser.getAverCycleSpeed()){
-			user.setAverCycleSpeed(newUser.getAverCycleSpeed());
-		}
-		if(user.getAverDriveSpeed()!=newUser.getAverDriveSpeed()){
-			user.setAverDriveSpeed(newUser.getAverDriveSpeed());
-		}
-		if(user.getAverWalkSpeed()!=newUser.getAverWalkSpeed()){
-			user.setAverWalkSpeed(newUser.getAverWalkSpeed());
-		}
-		if(user.getMode()!=newUser.getMode()){
-			user.setMode(newUser.getMode());
-		}
+		user.setAcceptPercent(newUser.getAcceptPercent());
+		user.setAverCycleSpeed(newUser.getAverCycleSpeed());
+		user.setAverDriveSpeed(newUser.getAverDriveSpeed());
+		user.setAverWalkSpeed(newUser.getAverWalkSpeed());
+		user.setMode(newUser.getMode());
 		user.setLocation(newUser.getLocation());
 		user.setStreetName(newUser.getStreetName());
 		user.setUpdatedTime(System.currentTimeMillis());

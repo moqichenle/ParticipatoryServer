@@ -30,7 +30,9 @@ public class TaskManagement {
 	 */
 	public List<SubjectiveTask> answerQuerySTask(byte categoryId,
 			int withInSeconds) {
-		String query = "";
+		String query = "select o from ObjectiveTask o where o.categoryId ="
+				+ categoryId + " and o.createdTime >"
+				+ (System.currentTimeMillis() - withInSeconds)+" and o.createdTime<"+System.currentTimeMillis();
 		@SuppressWarnings("unchecked")
 		List<SubjectiveTask> list = (List<SubjectiveTask>) sm.getAll(query);
 		return list;
@@ -47,7 +49,9 @@ public class TaskManagement {
 	 */
 	public List<ObjectiveTask> answerQueryOTask(byte categoryId,
 			int withInSeconds) {
-		String query = "";
+		String query = "select s from SubjectiveTask s where s.categoryId ="
+				+ categoryId + " and s.createdTime >"
+				+ (System.currentTimeMillis() - withInSeconds)+" and s.createdTime<"+System.currentTimeMillis();
 		@SuppressWarnings("unchecked")
 		List<ObjectiveTask> list = (List<ObjectiveTask>) sm.getAll(query);
 		return list;

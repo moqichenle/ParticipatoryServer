@@ -4,6 +4,7 @@ public class ResultsToQuery {
 
 	private Long reportId;
 	private Long taskId;
+	private byte categoryId;
 	private double latitude;
 	private double longitude;
 	private String content;
@@ -64,6 +65,14 @@ public class ResultsToQuery {
 
 	public void setTaskComment(String taskComment) {
 		this.taskComment = taskComment;
+	}
+
+	public byte getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(byte categoryId) {
+		this.categoryId = categoryId;
 	}
 
 }
