@@ -46,8 +46,12 @@ public class ReportListofUser extends HttpServlet {
 				toapp.setReportId(reportList.get(i).getReportId());
 				toapp.setReportTime(reportList.get(i).getReportTime());
 				toapp.setStreetName(reportList.get(i).getStreetName());
-				byte[] attachment = reportList.get(i).getAttachment().getBytes();
-				toapp.setAttachment(attachment);
+				if(reportList.get(i).getAttachment()!=null){
+					byte[] attachment = reportList.get(i).getAttachment().getBytes();
+					toapp.setAttachment(attachment);
+				}else{
+					toapp.setAttachment(null);
+				}
 				results.add(toapp);
 			}
 		}

@@ -60,7 +60,11 @@ public class AddReport extends HttpServlet {
 				report.setReportTime(System.currentTimeMillis());
 				report.setUserId(userId);
 				report.setStreetName(newUser.getStreetName());
-				report.setAttachment(new Blob(reportFromApp.getAttachment()));
+				if(reportFromApp.getAttachment()==null){
+					report.setAttachment(null);
+				}else{
+					report.setAttachment(new Blob(reportFromApp.getAttachment()));
+				}
 
 				UserReport ur = new UserReport();
 				ur.saveReport(report);

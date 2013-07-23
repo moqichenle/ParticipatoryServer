@@ -42,7 +42,7 @@ public class GetQueryResults extends HttpServlet {
 		UserManagement um = new UserManagement();
 		Query q = um.certainQuery(Long.valueOf(queryId));
 		UserReport ur = new UserReport();
-		int withInSeconds = 5 * 60 * 1000;// 5 mins
+		int withInSeconds = 10000 * 60 * 1000;// 5 mins
 		List<Report> answerQueryReports = ur.answerQueryReports(
 				q.getCategoryId(), withInSeconds);
 		List<ResultsToQuery> results = new ArrayList<ResultsToQuery>();
@@ -58,7 +58,11 @@ public class GetQueryResults extends HttpServlet {
 			rtq.setReportId(r.getReportId());
 			rtq.setTaskId(null);
 			rtq.setTaskComment(null);
-			rtq.setResultImage(null);
+			if(r.getAttachment()!=null){
+				rtq.setResultImage(r.getAttachment().getBytes());
+			}else{
+				rtq.setResultImage(null);
+			}
 			rtq.setCategoryId(r.getCategoryId());
 			results.add(rtq);
 		}

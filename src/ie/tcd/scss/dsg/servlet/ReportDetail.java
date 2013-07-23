@@ -38,7 +38,11 @@ public class ReportDetail extends HttpServlet {
 		toapp.setReportId(report.getReportId());
 		toapp.setReportTime(report.getReportTime());
 		toapp.setStreetName(report.getStreetName());
-		toapp.setAttachment(report.getAttachment().getBytes());
+		if(report.getAttachment()!=null){
+			toapp.setAttachment(report.getAttachment().getBytes());
+		}else{
+			toapp.setAttachment(null);
+		}
 		toapp.setUser(null);
 		toapp.setUserId(report.getUserId());
 		Gson gson = new Gson();
