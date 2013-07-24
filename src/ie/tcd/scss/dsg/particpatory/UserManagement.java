@@ -4,6 +4,7 @@ import ie.tcd.scss.dsg.po.Location;
 import ie.tcd.scss.dsg.po.Query;
 import ie.tcd.scss.dsg.po.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.appengine.api.search.GeoPoint;
@@ -70,7 +71,36 @@ public class UserManagement {
 		 * 
 		 * ?? when to estimate the user's location?
 		 */
-		return null;
+		String query = "select u from User u where u.hasSensor=" + sensorType
+				+ " and u.updatedTime>"
+				+ (System.currentTimeMillis() - 30 * 60 * 1000)
+				+ " and u.updatedTime<" + System.currentTimeMillis();
+		@SuppressWarnings("unchecked")
+		List<User> allUsers = (List<User>) sm.getAll(query);
+		List<User> suitable = new ArrayList<User>();
+		for (int i = 0; i < allUsers.size(); i++) {
+			User user = allUsers.get(i);
+			if (user.getMode().equals("still")) {
+				// if user's mode is still, means no moving, dont need to
+				// estimate.
+				boolean ifInRange = ifUserInRange(latitude, longtitude, user
+						.getLocation().getLatitude(), user.getLocation()
+						.getLongitude(), searchrange);
+				if (ifInRange) {
+					suitable.add(user);
+				}
+			} else {
+				// user moved, estimate new location.
+				GeoPoint geoPoint = estimateLocation(user);
+				boolean ifInRange = ifUserInRange(latitude, longtitude,
+						geoPoint.getLatitude(), geoPoint.getLatitude(),
+						searchrange);
+				if (ifInRange) {
+					suitable.add(user);
+				}
+			}
+		}
+		return suitable;
 	}
 
 	/**
@@ -86,7 +116,20 @@ public class UserManagement {
 		double lat1 = location.getLatitude();
 		double lon1 = location.getLongitude();
 		float brng = location.getBearing();
-		float speed = location.getSpeed();// per minute
+		float speed = 0.0f;
+		String mode = user.getMode();// in_vehicle;on_bicycle;on_foot;still
+		switch (mode) {
+		case "on_foot":
+			speed = user.getAverWalkSpeed();
+			break;
+		case "on_bicycle":
+			speed = user.getAverCycleSpeed();
+			break;
+		case "in_vehicle":
+			speed = user.getAverDriveSpeed();
+			break;
+		}
+
 		long timeMoved = (long) ((double) (System.currentTimeMillis() - user
 				.getUpdatedTime()) / 60);// calculate into min.
 		double distance = speed * timeMoved;
@@ -173,18 +216,18 @@ public class UserManagement {
 		List<Query> list = (List<Query>) sm.getAll(query);
 		return list.get(0);
 	}
-	
-	public String[] getRegisteredId(){
+
+	public String[] getRegisteredId() {
 		String query = "select u from User u";
 		@SuppressWarnings("unchecked")
 		List<User> user = (List<User>) sm.getAll(query);
-		if(user.size()!=0){
+		if (user.size() != 0) {
 			String[] ids = new String[user.size()];
-			for(int i=0;i<user.size();i++){
-				ids[i]=user.get(i).getRegisterId();
+			for (int i = 0; i < user.size(); i++) {
+				ids[i] = user.get(i).getRegisterId();
 			}
 			return ids;
-		}else{
+		} else {
 			return null;
 		}
 	}

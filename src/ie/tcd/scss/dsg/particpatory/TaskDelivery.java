@@ -1,9 +1,51 @@
 package ie.tcd.scss.dsg.particpatory;
 
-public class TaskDelivery {
-	
+import java.util.List;
 
-	public static void assignTask(String device,String message) {
-		System.out.println(GCMUtilities.sendMessage(device, message));
+import ie.tcd.scss.dsg.po.TaskAssignment;
+import ie.tcd.scss.dsg.po.TaskModel;
+import ie.tcd.scss.dsg.po.User;
+
+public class TaskDelivery {
+
+	public static void assignTask(Long taskId, double latitude,
+			double longtitude, String streetName) {
+		UserManagement um = new UserManagement();
+		TaskManagement tm = new TaskManagement();
+		StorageManager sm = new StorageManager();
+		TaskModel task = (TaskModel) sm.get(TaskModel.class, taskId);
+		List<User> suitableUsers = um.suitableUsers(latitude, longtitude,
+				task.getSensorType(), task.getSearchRange());
+		String device;
+		String message;
+		if (suitableUsers.size() != 0) {
+			// have suitable Users, assign tasks to them.
+			for (int i = 0; i < suitableUsers.size(); i++) {
+				User user = um.getCertainUser(suitableUsers.get(i).getUserId());
+				TaskAssignment ta = new TaskAssignment();
+				Long assignId ;
+				if (i != 0) {
+					// create a new task to user.
+					Long newTaskId = tm.createMainTask(task.getQueryId(), task.getCategoryId(),
+							latitude, longtitude, streetName);
+					ta.setTaskId(newTaskId);
+					ta.setUserId(user.getUserId());
+					ta = (TaskAssignment) sm.add(ta);
+					assignId = ta.getAssignId();
+				}else{
+					ta.setTaskId(task.getTaskId());
+					ta.setUserId(user.getUserId());
+					ta = (TaskAssignment) sm.add(ta);
+					assignId = ta.getAssignId();
+				}
+
+				device = user.getRegisterId();
+				message = task.getDescription() + "_" + task.getExpirePeriod()
+						+ "_" + task.getTaskId() + "_"+assignId;
+				// send message out, return infor if sending successful.
+				System.out.println(GCMUtilities.sendMessage(device, message));
+			}
+
+		}
 	}
 }

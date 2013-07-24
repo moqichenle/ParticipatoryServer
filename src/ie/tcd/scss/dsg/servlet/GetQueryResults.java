@@ -1,5 +1,6 @@
 package ie.tcd.scss.dsg.servlet;
 
+import ie.tcd.scss.dsg.particpatory.TaskDelivery;
 import ie.tcd.scss.dsg.particpatory.TaskManagement;
 import ie.tcd.scss.dsg.particpatory.UserManagement;
 import ie.tcd.scss.dsg.particpatory.UserReport;
@@ -95,9 +96,10 @@ public class GetQueryResults extends HttpServlet {
 			//TODO and at the same time , add the assigning into database.
 			byte categoryId = q.getCategoryId();
 			String streetName = q.getStreetName();
-//			String device = "APA91bEJa5xiYJcfJt3mRNnmX-vvA_0vkHhbnXOr_Eh-ebf5tM3WzAAJJncnyr7so4nvshtprR2VPp0R9G2Y524hkrzc6cgIydMJ_mVLKJ_2oktVLhx3j9XAeuZ0W88-lJOYuNeJI_pONsTIZUMgyUar7N6ybYSM3A";
-//			String message = "You have a task!";
-//			TaskDelivery.assignTask(device, message);
+			double lat = q.getLatitude();
+			double lont = q.getLongitude();
+			Long taskId = tm.createMainTask(q.getQueryId(), categoryId, lat, lont, streetName);
+			TaskDelivery.assignTask(taskId, lat, lont, streetName);
 		}
 		resp.setStatus(200);
 
