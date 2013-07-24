@@ -1,11 +1,8 @@
 package ie.tcd.scss.dsg.particpatory;
 
+import ie.tcd.scss.dsg.po.TaskModel;
+
 import java.util.List;
-
-
-import ie.tcd.scss.dsg.po.ObjectiveTask;
-import ie.tcd.scss.dsg.po.SubjectiveTask;
-import ie.tcd.scss.dsg.po.Task;
 
 /**
  * Handle query. Look for data in DB for query; Create a main task for unsolved
@@ -21,41 +18,24 @@ public class TaskManagement {
 
 	/**
 	 * when a user makes a query, search for the database to find out in the
-	 * past withInSeconds if there are any subjective tasks finished in certain
+	 * past withInSeconds if there are any tasks finished in certain
 	 * category.
 	 * 
 	 * @param categoryId
 	 * @param withInSeconds
 	 * @return
 	 */
-	public List<SubjectiveTask> answerQuerySTask(byte categoryId,
+	public List<TaskModel> answerQueryTask(byte categoryId,
 			int withInSeconds) {
-		String query = "select o from ObjectiveTask o where o.categoryId ="
-				+ categoryId + " and o.createdTime >"
-				+ (System.currentTimeMillis() - withInSeconds)+" and o.createdTime<"+System.currentTimeMillis();
+		String query = "select t from TaskModel t where t.categoryId ="
+				+ categoryId + " and t.createdTime >"
+				+ (System.currentTimeMillis() - withInSeconds)+" and t.createdTime<"+System.currentTimeMillis();
 		@SuppressWarnings("unchecked")
-		List<SubjectiveTask> list = (List<SubjectiveTask>) sm.getAll(query);
+		List<TaskModel> list = (List<TaskModel>) sm.getAll(query);
 		return list;
 	}
 
-	/**
-	 * when a user makes a query, search for the database to find out in the
-	 * past withInSeconds if there are any objective tasks finished in certain
-	 * category.
-	 * 
-	 * @param categoryId
-	 * @param withInSeconds
-	 * @return
-	 */
-	public List<ObjectiveTask> answerQueryOTask(byte categoryId,
-			int withInSeconds) {
-		String query = "select s from SubjectiveTask s where s.categoryId ="
-				+ categoryId + " and s.createdTime >"
-				+ (System.currentTimeMillis() - withInSeconds)+" and s.createdTime<"+System.currentTimeMillis();
-		@SuppressWarnings("unchecked")
-		List<ObjectiveTask> list = (List<ObjectiveTask>) sm.getAll(query);
-		return list;
-	}
+
 
 	/**
 	 * according to the category and the location, creating a new task, remember
@@ -67,8 +47,8 @@ public class TaskManagement {
 	 * @return
 	 */
 	public Long createMainTask(Long queryId, byte categoryId, double latitude,
-			double longtitude) {
-		Task t = new Task();
+			double longtitude, String location) {
+		TaskModel t = new TaskModel();
 		/*
 		 * for different category, create different task, has different
 		 * sensorType.,different task description for example. categoryId=1,
@@ -76,20 +56,28 @@ public class TaskManagement {
 		 */
 		switch (categoryId) {
 		case 0:
-			t.setDescription("how is the traffic situation in the street?");
-			t.setSearchRange(30);
-			t.setSensorType((byte) 48);
+			t.setDescription("how is the traffic situation at "+location+" ?");
+			t.setSearchRange(1000);
+			break;
+		case 1:
+			t.setDescription("how is the event at "+location+" ?");
+			t.setSearchRange(200);
+			
+			break;
+		case 2:
+			t.setDescription("how is the queue at "+location+" ?");
+			t.setSearchRange(200);
 			break;
 		}
-
+		t.setSensorType((byte) 48);
 		t.setCategoryId((byte) categoryId);
 		t.setCreatedTime(System.currentTimeMillis());
-		t.setExpirePeriod(300);
+		t.setExpirePeriod(5*60*1000);//5 mins
 		t.setLatitude(latitude);
 		t.setLongitude(longtitude);
 		t.setQueryId(queryId);
 		t.setStatus(false);
-		t = (Task) sm.add(t);
+		t = (TaskModel) sm.add(t);
 
 		return t.getTaskId();
 	}
@@ -103,28 +91,8 @@ public class TaskManagement {
 	 * @param taskId
 	 * @return
 	 */
-	public void updateTaskStatus(long taskId, String taskKind) {
-		sm.updateTaskStatus(taskId, taskKind);
+	public void updateTaskStatus(long taskId) {
+		sm.updateTaskStatus(taskId);
 	}
-
-	/**
-	 * create subtasks according to main tasks.(both subjective tasks and
-	 * objective tasks)
-	 * 
-	 * @param parentTaskId
-	 * @param categoryId
-	 */
-	public void createSubTasks(long parentTaskId, byte categoryId) {
-		SubjectiveTask st = new SubjectiveTask();
-		ObjectiveTask ot = new ObjectiveTask();
-		st.setCreatedTime(System.currentTimeMillis());
-		ot.setCreatedTime(System.currentTimeMillis());
-		switch (categoryId) {
-		case 0:
-			break;
-		}
-		/*
-		 * and more categories
-		 */
-	}
+	
 }

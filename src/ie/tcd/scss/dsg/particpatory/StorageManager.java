@@ -1,7 +1,6 @@
 package ie.tcd.scss.dsg.particpatory;
 
-import ie.tcd.scss.dsg.po.ObjectiveTask;
-import ie.tcd.scss.dsg.po.SubjectiveTask;
+import ie.tcd.scss.dsg.po.TaskModel;
 import ie.tcd.scss.dsg.po.User;
 
 import java.util.List;
@@ -98,16 +97,11 @@ public class StorageManager {
 		em.close();
 	}
 
-	public void updateTaskStatus(long taskId, String clazz) {
+	public void updateTaskStatus(long taskId) {
 		em = getEntityManager();
 		em.getTransaction().begin();
-		if (clazz.equals("ObjectiveTask")) {
-			ObjectiveTask task = em.find(ObjectiveTask.class, taskId);
-			task.setStatus(true);
-		} else if (clazz.equals("SubjectiveTask")) {
-			SubjectiveTask task = em.find(SubjectiveTask.class, taskId);
-			task.setStatus(true);
-		}
+		TaskModel task = em.find(TaskModel.class, taskId);
+		task.setStatus(true);
 		em.getTransaction().commit();
 		em.close();
 	}

@@ -1,20 +1,20 @@
-<!-- Indices written at Mon, 22 Jul 2013 23:22:50 BST -->
+<!-- Indices written at Wed, 24 Jul 2013 14:40:33 BST -->
 
 <datastore-indexes>
 
-    <!-- Used 4 times in query history -->
+    <!-- Used 1 time in query history -->
     <datastore-index kind="Report" ancestor="false" source="auto">
         <property name="categoryId" direction="asc"/>
         <property name="reportTime" direction="asc"/>
     </datastore-index>
 
-    <!-- Used 4 times in query history -->
+    <!-- Used 1 time in query history -->
     <datastore-index kind="SubjectiveTask" ancestor="false" source="auto">
         <property name="categoryId" direction="asc"/>
         <property name="createdTime" direction="asc"/>
     </datastore-index>
 
-    <!-- Used 4 times in query history -->
+    <!-- Used 1 time in query history -->
     <datastore-index kind="ObjectiveTask" ancestor="false" source="auto">
         <property name="categoryId" direction="asc"/>
         <property name="createdTime" direction="asc"/>

@@ -13,7 +13,7 @@ import javax.persistence.Id;
  * 
  */
 @Entity
-public class Task {
+public class TaskModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +29,8 @@ public class Task {
 	private long createdTime;
 	private double searchRange;
 	private boolean status;
+	private byte[] picture;
+	private String comment;
 
 	public Long getTaskId() {
 		return taskId;
@@ -116,6 +118,22 @@ public class Task {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 }
