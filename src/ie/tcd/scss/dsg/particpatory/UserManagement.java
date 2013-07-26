@@ -1,6 +1,5 @@
 package ie.tcd.scss.dsg.particpatory;
 
-import ie.tcd.scss.dsg.po.Location;
 import ie.tcd.scss.dsg.po.Query;
 import ie.tcd.scss.dsg.po.User;
 
@@ -73,19 +72,22 @@ public class UserManagement {
 		 */
 		String query = "select u from User u where u.hasSensor=" + sensorType
 				+ " and u.updatedTime>"
-				+ (System.currentTimeMillis() - 30 * 60 * 1000)
+				+ (System.currentTimeMillis() - 1000 * 60 * 1000)
 				+ " and u.updatedTime<" + System.currentTimeMillis();
 		@SuppressWarnings("unchecked")
 		List<User> allUsers = (List<User>) sm.getAll(query);
 		List<User> suitable = new ArrayList<User>();
+		System.out.println("UserManagement-->" + allUsers.size());
 		for (int i = 0; i < allUsers.size(); i++) {
 			User user = allUsers.get(i);
+			System.out.println("UserManagement-->" + user.getMode());
 			if (user.getMode().equals("still")) {
 				// if user's mode is still, means no moving, dont need to
 				// estimate.
-				boolean ifInRange = ifUserInRange(latitude, longtitude, user
-						.getLocation().getLatitude(), user.getLocation()
-						.getLongitude(), searchrange);
+				System.out.println(user.getLatitude()
+						+ "UserManagement-->get user's location");
+				boolean ifInRange = ifUserInRange(latitude, longtitude,
+						user.getLatitude(), user.getLongitude(), searchrange);
 				if (ifInRange) {
 					suitable.add(user);
 				}
@@ -112,10 +114,9 @@ public class UserManagement {
 	 * @return
 	 */
 	public GeoPoint estimateLocation(User user) {
-		Location location = user.getLocation();
-		double lat1 = location.getLatitude();
-		double lon1 = location.getLongitude();
-		float brng = location.getBearing();
+		double lat1 = user.getLatitude();
+		double lon1 = user.getLongitude();
+		float brng = user.getBearing();
 		float speed = 0.0f;
 		String mode = user.getMode();// in_vehicle;on_bicycle;on_foot;still
 		switch (mode) {

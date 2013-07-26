@@ -2,7 +2,6 @@ package ie.tcd.scss.dsg.servlet;
 
 import ie.tcd.scss.dsg.particpatory.UserManagement;
 import ie.tcd.scss.dsg.particpatory.UserReport;
-import ie.tcd.scss.dsg.po.Location;
 import ie.tcd.scss.dsg.po.Report;
 import ie.tcd.scss.dsg.po.ReportFromApp;
 import ie.tcd.scss.dsg.po.User;
@@ -43,9 +42,6 @@ public class AddReport extends HttpServlet {
 				Long userId = reportFromApp.getUserId();
 				Report report = new Report();
 
-				Location location = new Location();
-				location = reportFromApp.getUser().getLocation();
-
 				// update user's context
 				User newUser = new User();
 				newUser = reportFromApp.getUser();
@@ -55,14 +51,14 @@ public class AddReport extends HttpServlet {
 				// store report
 				report.setCategoryId(reportFromApp.getCategoryId());
 				report.setContend(reportFromApp.getContend());
-				report.setLatitude(location.getLatitude());
-				report.setLongitude(location.getLongitude());
+				report.setLatitude(reportFromApp.getUser().getLatitude());
+				report.setLongitude(reportFromApp.getUser().getLongitude());
 				report.setReportTime(System.currentTimeMillis());
 				report.setUserId(userId);
 				report.setStreetName(newUser.getStreetName());
-				if(reportFromApp.getAttachment()==null){
+				if (reportFromApp.getAttachment() == null) {
 					report.setAttachment(null);
-				}else{
+				} else {
 					report.setAttachment(new Blob(reportFromApp.getAttachment()));
 				}
 

@@ -90,6 +90,15 @@
 		<servlet-name>QueryResult</servlet-name>
 		<url-pattern>/queryresults</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>TaskListofUser</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.TaskListofUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TaskListofUser</servlet-name>
+		<url-pattern>/tasklistofuser</url-pattern>
+	</servlet-mapping>
 	<!-- servlet -->
 	
 	<!-- test -->
@@ -100,14 +109,6 @@
 	<servlet-mapping>
 		<servlet-name>ReportListTest</servlet-name>
 		<url-pattern>/reportlist</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>AddTask</servlet-name>
-		<servlet-class>ie.tcd.scss.dsg.test.AddTask</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AddTask</servlet-name>
-		<url-pattern>/addtask</url-pattern>
 	</servlet-mapping>
 	<!-- test -->
 </web-app>

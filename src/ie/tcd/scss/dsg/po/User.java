@@ -1,6 +1,5 @@
 package ie.tcd.scss.dsg.po;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,8 +28,11 @@ public class User {
 	private String registerId;
 	private long updatedTime;
 
-	@Embedded
-	private Location location;
+	private double longitude;
+	private double latitude;
+	private float bearing;
+	private float speed;
+	private float accuracy;
 
 	private String streetName;
 	private byte hasSensor;
@@ -39,8 +41,6 @@ public class User {
 	private float averWalkSpeed;
 	private float averDriveSpeed;
 	private float averCycleSpeed;
-
-	
 
 	public Long getUserId() {
 		return userId;
@@ -66,12 +66,44 @@ public class User {
 		this.updatedTime = updatedTime;
 	}
 
-	public Location getLocation() {
-		return location;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public float getBearing() {
+		return bearing;
+	}
+
+	public void setBearing(float bearing) {
+		this.bearing = bearing;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public float getAccuracy() {
+		return accuracy;
+	}
+
+	public void setAccuracy(float accuracy) {
+		this.accuracy = accuracy;
 	}
 
 	public String getStreetName() {

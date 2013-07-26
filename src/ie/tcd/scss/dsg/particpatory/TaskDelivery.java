@@ -14,8 +14,12 @@ public class TaskDelivery {
 		TaskManagement tm = new TaskManagement();
 		StorageManager sm = new StorageManager();
 		TaskModel task = (TaskModel) sm.get(TaskModel.class, taskId);
+		System.out.println("Get a task from database"+task);
+		System.out.println("TaskDelivery-->receive a task "+taskId+"/"+latitude+"/"+longtitude+"/"+
+				task.getSensorType()+"/"+task.getSearchRange());
 		List<User> suitableUsers = um.suitableUsers(latitude, longtitude,
 				task.getSensorType(), task.getSearchRange());
+		System.out.println("TaskDelivery-->find suitableUsers how many:"+suitableUsers.size());
 		String device;
 		String message;
 		if (suitableUsers.size() != 0) {
@@ -30,22 +34,24 @@ public class TaskDelivery {
 							latitude, longtitude, streetName);
 					ta.setTaskId(newTaskId);
 					ta.setUserId(user.getUserId());
-					ta = (TaskAssignment) sm.add(ta);
-					assignId = ta.getAssignId();
+					//ta = (TaskAssignment) sm.add(ta);
+					//assignId = ta.getAssignId();
 				}else{
 					ta.setTaskId(task.getTaskId());
 					ta.setUserId(user.getUserId());
-					ta = (TaskAssignment) sm.add(ta);
-					assignId = ta.getAssignId();
+					//ta = (TaskAssignment) sm.add(ta);
+					//assignId = ta.getAssignId();
 				}
 
 				device = user.getRegisterId();
 				message = task.getDescription() + "_" + task.getExpirePeriod()
-						+ "_" + task.getTaskId() + "_"+assignId;
+						+ "_" + task.getTaskId() + "_"+86;
+				System.out.println("MESSAGE="+message);
 				// send message out, return infor if sending successful.
 				System.out.println(GCMUtilities.sendMessage(device, message));
 			}
-
+		}else{
+			System.out.println("TaskDelivery-->No suitable users.");
 		}
 	}
 }

@@ -40,6 +40,7 @@ public class GetQueryResults extends HttpServlet {
 		String queryId = req.getParameter("queryId");
 		UserManagement um = new UserManagement();
 		Query q = um.certainQuery(Long.valueOf(queryId));
+
 		UserReport ur = new UserReport();
 		int withInSeconds = 60 * 60 * 1000;// 5 mins
 		List<Report> answerQueryReports = ur.answerQueryReports(
@@ -66,7 +67,8 @@ public class GetQueryResults extends HttpServlet {
 			results.add(rtq);
 		}
 		TaskManagement tm = new TaskManagement();
-		List<TaskModel> answerQueryTasks = tm.answerQueryTask(q.getCategoryId(), withInSeconds);
+		List<TaskModel> answerQueryTasks = tm.answerQueryTask(
+				q.getCategoryId(), withInSeconds);
 
 		for (int j = 0; j < answerQueryTasks.size(); j++) {
 			ResultsToQuery rtq = new ResultsToQuery();
@@ -74,15 +76,21 @@ public class GetQueryResults extends HttpServlet {
 			rtq.setTaskId(t.getTaskId());
 			rtq.setLatitude(t.getLatitude());
 			rtq.setLongitude(t.getLongitude());
-			if(t.getPicture()!=null){
-				rtq.setResultImage(t.getPicture());
-			}else{
+			if (t.getPicture() != null) {
+				rtq.setResultImage(t.getPicture().getBytes());
+			} else {
 				rtq.setResultImage(null);
 			}
 			rtq.setContent(null);
 			rtq.setReportId(null);
-			rtq.setTaskComment(t.getComment());
+			if (t.getComment() != null) {
+				rtq.setTaskComment(t.getComment());
+			} else {
+				rtq.setTaskComment(null);
+			}
 			rtq.setCategoryId(t.getCategoryId());
+			System.out.println("has a task which is finished" + t.getComment()
+					+ "/" + t.getPicture());
 			results.add(rtq);
 		}
 
@@ -92,14 +100,17 @@ public class GetQueryResults extends HttpServlet {
 		resp.getWriter().write(json);
 		if (results.size() == 0) {
 			System.out.println("if no results towards a query:");
-			// assign tasks. 
-			//TODO and at the same time , add the assigning into database.
+			// assign tasks.
+			// TODO and at the same time , add the assigning into database.
 			byte categoryId = q.getCategoryId();
 			String streetName = q.getStreetName();
 			double lat = q.getLatitude();
 			double lont = q.getLongitude();
-			Long taskId = tm.createMainTask(q.getQueryId(), categoryId, lat, lont, streetName);
-			TaskDelivery.assignTask(taskId, lat, lont, streetName);
+//			Long taskId = tm.createMainTask(q.getQueryId(), categoryId, lat,
+//					lont, streetName);
+			System.out.println("GetQueryResults-->" + 81 + "/" + lat + "/"
+					+ lont + "/" + streetName);
+			TaskDelivery.assignTask(Long.valueOf(84), lat, lont, streetName);
 		}
 		resp.setStatus(200);
 

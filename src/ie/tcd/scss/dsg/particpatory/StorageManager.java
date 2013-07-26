@@ -90,7 +90,11 @@ public class StorageManager {
 		user.setAverDriveSpeed(newUser.getAverDriveSpeed());
 		user.setAverWalkSpeed(newUser.getAverWalkSpeed());
 		user.setMode(newUser.getMode());
-		user.setLocation(newUser.getLocation());
+		user.setLatitude(newUser.getLatitude());
+		user.setLongitude(newUser.getLongitude());
+		user.setSpeed(newUser.getSpeed());
+		user.setBearing(newUser.getBearing());
+		user.setAccuracy(newUser.getAccuracy());
 		user.setStreetName(newUser.getStreetName());
 		user.setUpdatedTime(System.currentTimeMillis());
 		em.getTransaction().commit();

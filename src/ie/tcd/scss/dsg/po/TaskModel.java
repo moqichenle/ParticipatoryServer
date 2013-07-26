@@ -1,9 +1,12 @@
 package ie.tcd.scss.dsg.po;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.google.appengine.api.datastore.Blob;
 
 /**
  * tasks that are created for unsolved queries from certain user, depending on
@@ -29,7 +32,8 @@ public class TaskModel {
 	private long createdTime;
 	private double searchRange;
 	private boolean status;
-	private byte[] picture;
+	@Basic
+	private Blob picture;
 	private String comment;
 
 	public Long getTaskId() {
@@ -120,11 +124,11 @@ public class TaskModel {
 		this.status = status;
 	}
 
-	public byte[] getPicture() {
+	public Blob getPicture() {
 		return picture;
 	}
 
-	public void setPicture(byte[] picture) {
+	public void setPicture(Blob picture) {
 		this.picture = picture;
 	}
 

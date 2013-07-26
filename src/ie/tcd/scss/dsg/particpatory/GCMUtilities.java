@@ -22,7 +22,7 @@ public class GCMUtilities {
 	public static String sendMessage(String device, String message) {
 		try {
 			System.out.println("prepare for sending  a message to phone.");
-			Builder messagebuilder = new Message.Builder().addData("FIELD_CONTENT", message);
+			Builder messagebuilder = new Message.Builder().addData("message", message);
 			Message gcmMessage = messagebuilder.build();
 			Result result = SENDER.send(gcmMessage, device, TRIES);
 			if(result.getErrorCodeName() != null) {
