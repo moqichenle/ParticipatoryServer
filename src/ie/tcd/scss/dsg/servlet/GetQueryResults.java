@@ -42,7 +42,7 @@ public class GetQueryResults extends HttpServlet {
 		Query q = um.certainQuery(Long.valueOf(queryId));
 
 		UserReport ur = new UserReport();
-		int withInSeconds = 60 * 60 * 1000;// 5 mins
+		int withInSeconds = 600000 * 60 * 1000;// 5 mins
 		List<Report> answerQueryReports = ur.answerQueryReports(
 				q.getCategoryId(), withInSeconds);
 		List<ResultsToQuery> results = new ArrayList<ResultsToQuery>();
@@ -106,11 +106,9 @@ public class GetQueryResults extends HttpServlet {
 			String streetName = q.getStreetName();
 			double lat = q.getLatitude();
 			double lont = q.getLongitude();
-//			Long taskId = tm.createMainTask(q.getQueryId(), categoryId, lat,
-//					lont, streetName);
-			System.out.println("GetQueryResults-->" + 81 + "/" + lat + "/"
-					+ lont + "/" + streetName);
-			TaskDelivery.assignTask(Long.valueOf(84), lat, lont, streetName);
+			Long taskId = tm.createMainTask(q.getQueryId(), categoryId, lat,
+					lont, streetName);
+			TaskDelivery.assignTask(Long.valueOf(taskId), lat, lont, streetName);
 		}
 		resp.setStatus(200);
 

@@ -34,18 +34,18 @@ public class TaskDelivery {
 							latitude, longtitude, streetName);
 					ta.setTaskId(newTaskId);
 					ta.setUserId(user.getUserId());
-					//ta = (TaskAssignment) sm.add(ta);
-					//assignId = ta.getAssignId();
+					ta = (TaskAssignment) sm.add(ta);
+					assignId = ta.getAssignId();
 				}else{
 					ta.setTaskId(task.getTaskId());
 					ta.setUserId(user.getUserId());
-					//ta = (TaskAssignment) sm.add(ta);
-					//assignId = ta.getAssignId();
+					ta = (TaskAssignment) sm.add(ta);
+					assignId = ta.getAssignId();
 				}
 
 				device = user.getRegisterId();
 				message = task.getDescription() + "_" + task.getExpirePeriod()
-						+ "_" + task.getTaskId() + "_"+86;
+						+ "_" + task.getTaskId() + "_"+assignId;
 				System.out.println("MESSAGE="+message);
 				// send message out, return infor if sending successful.
 				System.out.println(GCMUtilities.sendMessage(device, message));

@@ -90,7 +90,7 @@
 		<servlet-name>QueryResult</servlet-name>
 		<url-pattern>/queryresults</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>TaskListofUser</servlet-name>
 		<servlet-class>ie.tcd.scss.dsg.servlet.TaskListofUser</servlet-class>
@@ -99,8 +99,24 @@
 		<servlet-name>TaskListofUser</servlet-name>
 		<url-pattern>/tasklistofuser</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>TaskDetail</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.TaskDetail</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TaskDetail</servlet-name>
+		<url-pattern>/taskdetail</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>FinishTask</servlet-name>
+		<servlet-class>ie.tcd.scss.dsg.servlet.FinishTask</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FinishTask</servlet-name>
+		<url-pattern>/finishtask</url-pattern>
+	</servlet-mapping>
 	<!-- servlet -->
-	
+
 	<!-- test -->
 	<servlet>
 		<servlet-name>ReportListTest</servlet-name>

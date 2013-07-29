@@ -86,18 +86,18 @@ public class TaskManagement {
 	}
 
 	/**
-	 * when the user said tasks(main tasks, or subtasks) are finished, the
-	 * status will change to true;
+	 * when the user said tasks(main tasks, or subtasks) are finished, update
+	 * the task information. add user's comment or uploaded picture;
 	 * 
-	 * @param taskId
-	 * @return
+	 * @param task
 	 */
-	public void updateTaskStatus(long taskId) {
-		sm.updateTaskStatus(taskId);
+	public void updateTask(TaskModel task) {
+		sm.updateTaskStatus(task);
 	}
 
 	/**
 	 * get all the tasks a user received
+	 * 
 	 * @param userId
 	 * @return
 	 */
@@ -114,5 +114,10 @@ public class TaskManagement {
 			list.add(model);
 		}
 		return list;
+	}
+	
+	public TaskModel certainTask(Long taskId){
+		TaskModel t = (TaskModel) sm.get(TaskModel.class, taskId);
+		return t;
 	}
 }

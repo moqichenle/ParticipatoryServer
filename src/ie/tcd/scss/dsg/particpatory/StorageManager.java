@@ -101,11 +101,15 @@ public class StorageManager {
 		em.close();
 	}
 
-	public void updateTaskStatus(long taskId) {
+	public void updateTaskStatus(TaskModel task) {
 		em = getEntityManager();
 		em.getTransaction().begin();
-		TaskModel task = em.find(TaskModel.class, taskId);
-		task.setStatus(true);
+		TaskModel oldTask = em.find(TaskModel.class, task.getTaskId());
+		oldTask.setComment(task.getComment());
+		if(task.getPicture()!=null){
+			oldTask.setPicture(task.getPicture());
+		}
+		oldTask.setStatus(true);
 		em.getTransaction().commit();
 		em.close();
 	}
