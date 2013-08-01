@@ -35,7 +35,9 @@ public class TaskListofUser extends HttpServlet {
 		TaskManagement tm = new TaskManagement();
 		List<TaskModel> list = tm.getTasksforUser(Long.valueOf(userId));
 		List<TaskFromApp> res=new ArrayList<TaskFromApp>(); 
+		System.out.println("tasklist of user--->"+list.size());
 		for(int i =0;i<list.size();i++){
+			System.out.println("tasklist of user--->"+list.get(i)+"/"+list.get(i).getTaskId());
 			TaskFromApp tfa = new TaskFromApp();
 			tfa.setTaskId(list.get(i).getTaskId());
 			tfa.setDescription(list.get(i).getDescription());
