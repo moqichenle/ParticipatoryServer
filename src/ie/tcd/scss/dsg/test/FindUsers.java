@@ -8,7 +8,7 @@ public class FindUsers {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		TaskDelivery.assignTask(Long.valueOf(81), 53.3420153, -6.235231, "Ringsend Road, Dublin, Ireland");
+//		TaskDelivery.assignTask(Long.valueOf(81), 53.3420153, -6.235231, "Ringsend Road, Dublin, Ireland");
 	}
 
 }

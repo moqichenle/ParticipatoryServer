@@ -72,7 +72,7 @@ public class UserManagement {
 		 */
 		String query = "select u from User u where u.hasSensor=" + sensorType
 				+ " and u.updatedTime>"
-				+ (System.currentTimeMillis() - 1000 * 60 * 1000)
+				+ (System.currentTimeMillis() - 60 * 60 * 1000)
 				+ " and u.updatedTime<" + System.currentTimeMillis();
 		@SuppressWarnings("unchecked")
 		List<User> allUsers = (List<User>) sm.getAll(query);
@@ -88,6 +88,7 @@ public class UserManagement {
 						+ "UserManagement-->get user's location");
 				boolean ifInRange = ifUserInRange(latitude, longtitude,
 						user.getLatitude(), user.getLongitude(), searchrange);
+				System.out.println("if in range?"+ifInRange+"/"+user.getUserId());
 				if (ifInRange) {
 					suitable.add(user);
 				}
@@ -97,6 +98,7 @@ public class UserManagement {
 				boolean ifInRange = ifUserInRange(latitude, longtitude,
 						geoPoint.getLatitude(), geoPoint.getLatitude(),
 						searchrange);
+				System.out.println("if in range?"+ifInRange+"/"+user.getUserId());
 				if (ifInRange) {
 					suitable.add(user);
 				}
@@ -199,7 +201,7 @@ public class UserManagement {
 	 * @return
 	 */
 	public List<Query> queryFromCertainUser(long userId) {
-		String query = "select q from Query q where q.userId=" + userId;
+		String query = "select q from Query q where q.userId=" + userId+" ORDER BY q.queryId descending";
 		@SuppressWarnings("unchecked")
 		List<Query> list = (List<Query>) sm.getAll(query);
 		return list;
@@ -212,7 +214,7 @@ public class UserManagement {
 	 * @return
 	 */
 	public Query certainQuery(long queryId) {
-		String query = "select q from Query q where q.queryId=" + queryId;
+		String query = "select q from Query q where q.queryId=" + queryId+" ORDER BY q.queryId descending";
 		@SuppressWarnings("unchecked")
 		List<Query> list = (List<Query>) sm.getAll(query);
 		return list.get(0);

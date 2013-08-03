@@ -103,7 +103,7 @@ public class TaskManagement {
 	 */
 	public List<TaskModel> getTasksforUser(Long userId) {
 		String query = "select a from TaskAssignment a where a.userId="
-				+ userId;
+				+ userId +" ORDER BY a.taskId descending";
 		List<TaskModel> list = new ArrayList<TaskModel>();
 		@SuppressWarnings("unchecked")
 		List<TaskAssignment> tasks = (List<TaskAssignment>) sm.getAll(query);

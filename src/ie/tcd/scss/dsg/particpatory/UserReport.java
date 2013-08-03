@@ -52,7 +52,7 @@ public class UserReport {
 	 * @return
 	 */
 	public List<Report> reportFromCertainUser(long userId){
-		String query = "select r from Report r where r.userId="+userId;
+		String query = "select r from Report r where r.userId="+userId+" ORDER BY r.reportId descending";
 		@SuppressWarnings("unchecked")
 		List<Report> list = (List<Report>) sm.getAll(query);
 		return list;

@@ -8,7 +8,7 @@ import ie.tcd.scss.dsg.po.User;
 
 public class TaskDelivery {
 
-	public static void assignTask(Long taskId, double latitude,
+	public static void assignTask(Long userId,Long taskId, double latitude,
 			double longtitude, String streetName) {
 		UserManagement um = new UserManagement();
 		TaskManagement tm = new TaskManagement();
@@ -25,6 +25,9 @@ public class TaskDelivery {
 		if (suitableUsers.size() != 0) {
 			// have suitable Users, assign tasks to them.
 			for (int i = 0; i < suitableUsers.size(); i++) {
+				if(suitableUsers.get(i).getUserId()==userId){
+					continue;
+				}
 				User user = um.getCertainUser(suitableUsers.get(i).getUserId());
 				TaskAssignment ta = new TaskAssignment();
 				Long assignId ;

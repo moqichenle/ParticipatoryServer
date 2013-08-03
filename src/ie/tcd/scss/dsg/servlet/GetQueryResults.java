@@ -43,8 +43,7 @@ public class GetQueryResults extends HttpServlet {
 
 		UserReport ur = new UserReport();
 		int withInSeconds = 30 * 60 * 1000;// 30 mins
-		List<Report> answerQueryReports = ur.answerQueryReports(
-				q.getCategoryId(), withInSeconds);
+		List<Report> answerQueryReports = ur.answerQueryReports(q.getCategoryId(), withInSeconds);
 		List<ResultsToQuery> results = new ArrayList<ResultsToQuery>();
 
 		for (int i = 0; i < answerQueryReports.size(); i++) {
@@ -67,8 +66,7 @@ public class GetQueryResults extends HttpServlet {
 			results.add(rtq);
 		}
 		TaskManagement tm = new TaskManagement();
-		List<TaskModel> answerQueryTasks = tm.answerQueryTask(
-				q.getCategoryId(), withInSeconds);
+		List<TaskModel> answerQueryTasks = tm.answerQueryTask(q.getCategoryId(), withInSeconds);
 
 		for (int j = 0; j < answerQueryTasks.size(); j++) {
 			ResultsToQuery rtq = new ResultsToQuery();
@@ -108,7 +106,8 @@ public class GetQueryResults extends HttpServlet {
 			double lont = q.getLongitude();
 			Long taskId = tm.createMainTask(q.getQueryId(), categoryId, lat,
 					lont, streetName);
-			TaskDelivery.assignTask(Long.valueOf(taskId), lat, lont, streetName);
+			TaskDelivery.assignTask(Long.valueOf(q.getUserId()),
+					Long.valueOf(taskId), lat, lont, streetName);
 		}
 		resp.setStatus(200);
 
