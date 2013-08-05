@@ -1,4 +1,4 @@
-<!-- Indices written at Sat, 3 Aug 2013 18:14:22 BST -->
+<!-- Indices written at Sat, 3 Aug 2013 18:29:38 BST -->
 
 <datastore-indexes>
 
@@ -8,7 +8,7 @@
         <property name="__key__" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 5 times in query history -->
+    <!-- Used 6 times in query history -->
     <datastore-index kind="TaskAssignment" ancestor="false" source="auto">
         <property name="userId" direction="asc"/>
         <property name="taskId" direction="desc"/>

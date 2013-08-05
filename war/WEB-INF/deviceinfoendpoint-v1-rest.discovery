@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"s1omim4x8ymp9_6H8kBMkfEDqpo/YxSQawTHrfuW8vJHi-KXiOK7k2E\"",
+ "etag": "\"nPbVolg1F8jpPe9kkErPtt8mpZE/LX_8wrzZlogiFUB23luOiHs8IxE\"",
  "discoveryVersion": "v1",
  "id": "deviceinfoendpoint:v1",
  "name": "deviceinfoendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/deviceinfoendpoint/v1/",
+ "baseUrl": "https://participatorysensing.appspot.com/_ah/api/deviceinfoendpoint/v1/",
  "basePath": "/_ah/api/deviceinfoendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://participatorysensing.appspot.com/_ah/api/",
  "servicePath": "deviceinfoendpoint/v1/",
  "batchPath": "batch",
  "parameters": {
@@ -121,7 +121,8 @@
    "path": "deviceinfo",
    "httpMethod": "POST",
    "request": {
-    "$ref": "DeviceInfo"
+    "$ref": "DeviceInfo",
+    "parameterName": "resource"
    },
    "response": {
     "$ref": "DeviceInfo"
@@ -169,7 +170,8 @@
    "path": "deviceinfo",
    "httpMethod": "PUT",
    "request": {
-    "$ref": "DeviceInfo"
+    "$ref": "DeviceInfo",
+    "parameterName": "resource"
    },
    "response": {
     "$ref": "DeviceInfo"
