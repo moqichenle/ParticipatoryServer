@@ -72,8 +72,7 @@ public class UserManagement {
 		 */
 		String query = "select u from User u where u.hasSensor=" + sensorType
 				+ " and u.updatedTime>"
-				+ (System.currentTimeMillis() - 60 * 60 * 1000)
-				+ " and u.updatedTime<" + System.currentTimeMillis();
+				+ (System.currentTimeMillis() - 60 * 60 * 1000);
 		@SuppressWarnings("unchecked")
 		List<User> allUsers = (List<User>) sm.getAll(query);
 		List<User> suitable = new ArrayList<User>();
@@ -88,7 +87,8 @@ public class UserManagement {
 						+ "UserManagement-->get user's location");
 				boolean ifInRange = ifUserInRange(latitude, longtitude,
 						user.getLatitude(), user.getLongitude(), searchrange);
-				System.out.println("if in range?"+ifInRange+"/"+user.getUserId());
+				System.out.println("if in range?" + ifInRange + "/"
+						+ user.getUserId());
 				if (ifInRange) {
 					suitable.add(user);
 				}
@@ -98,7 +98,8 @@ public class UserManagement {
 				boolean ifInRange = ifUserInRange(latitude, longtitude,
 						geoPoint.getLatitude(), geoPoint.getLatitude(),
 						searchrange);
-				System.out.println("if in range?"+ifInRange+"/"+user.getUserId());
+				System.out.println("if in range?" + ifInRange + "/"
+						+ user.getUserId());
 				if (ifInRange) {
 					suitable.add(user);
 				}
@@ -119,7 +120,7 @@ public class UserManagement {
 		double lat1 = user.getLatitude();
 		double lon1 = user.getLongitude();
 		float brng = user.getBearing();
-		float speed = 0.0f;
+		float speed = user.getSpeed();
 		String mode = user.getMode();// in_vehicle;on_bicycle;on_foot;still
 		switch (mode) {
 		case "on_foot":
@@ -178,7 +179,7 @@ public class UserManagement {
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		double d = R * c;
 
-		if (d <= searchRange) {
+		if (d*1000 <= searchRange) {
 			return true;
 		} else {
 			return false;
@@ -201,7 +202,8 @@ public class UserManagement {
 	 * @return
 	 */
 	public List<Query> queryFromCertainUser(long userId) {
-		String query = "select q from Query q where q.userId=" + userId+" ORDER BY q.queryId descending";
+		String query = "select q from Query q where q.userId=" + userId
+				+ " ORDER BY q.queryTime descending";
 		@SuppressWarnings("unchecked")
 		List<Query> list = (List<Query>) sm.getAll(query);
 		return list;
@@ -214,10 +216,8 @@ public class UserManagement {
 	 * @return
 	 */
 	public Query certainQuery(long queryId) {
-		String query = "select q from Query q where q.queryId=" + queryId+" ORDER BY q.queryId descending";
-		@SuppressWarnings("unchecked")
-		List<Query> list = (List<Query>) sm.getAll(query);
-		return list.get(0);
+		Query query = (Query) sm.get(Query.class, queryId);
+		return query;
 	}
 
 	public String[] getRegisteredId() {

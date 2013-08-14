@@ -27,10 +27,9 @@ public class TaskManagement {
 	 * @return
 	 */
 	public List<TaskModel> answerQueryTask(byte categoryId, int withInSeconds) {
+		Long criticalTime = System.currentTimeMillis() - withInSeconds;
 		String query = "select t from TaskModel t where t.categoryId ="
-				+ categoryId + " and t.createdTime >"
-				+ (System.currentTimeMillis() - withInSeconds)
-				+ " and t.createdTime<" + System.currentTimeMillis()
+				+ categoryId + " and t.createdTime >" + criticalTime
 				+ " and t.status = true";
 		@SuppressWarnings("unchecked")
 		List<TaskModel> list = (List<TaskModel>) sm.getAll(query);
@@ -59,16 +58,16 @@ public class TaskManagement {
 		case 0:
 			t.setDescription("how is the traffic situation at " + location
 					+ " ?");
-			t.setSearchRange(1000);
+			t.setSearchRange(500);
 			break;
 		case 1:
 			t.setDescription("how is the event at " + location + " ?");
-			t.setSearchRange(200);
+			t.setSearchRange(150);
 
 			break;
 		case 2:
 			t.setDescription("how is the queue at " + location + " ?");
-			t.setSearchRange(200);
+			t.setSearchRange(150);
 			break;
 		}
 		t.setSensorType((byte) 48);
@@ -103,7 +102,7 @@ public class TaskManagement {
 	 */
 	public List<TaskModel> getTasksforUser(Long userId) {
 		String query = "select a from TaskAssignment a where a.userId="
-				+ userId +" ORDER BY a.taskId descending";
+				+ userId + " ORDER BY a.taskId descending";
 		List<TaskModel> list = new ArrayList<TaskModel>();
 		@SuppressWarnings("unchecked")
 		List<TaskAssignment> tasks = (List<TaskAssignment>) sm.getAll(query);
@@ -115,8 +114,8 @@ public class TaskManagement {
 		}
 		return list;
 	}
-	
-	public TaskModel certainTask(Long taskId){
+
+	public TaskModel certainTask(Long taskId) {
 		TaskModel t = (TaskModel) sm.get(TaskModel.class, taskId);
 		return t;
 	}

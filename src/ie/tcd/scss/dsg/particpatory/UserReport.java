@@ -37,36 +37,37 @@ public class UserReport {
 	 * @return
 	 */
 	public List<Report> answerQueryReports(byte categoryId, int withInSeconds) {
-
+		Long criticalTime = System.currentTimeMillis() - withInSeconds;
 		String query = "select r from Report r where r.categoryId ="
-				+ categoryId + " and r.reportTime >"
-				+ (System.currentTimeMillis() - withInSeconds)+" and r.reportTime<"+System.currentTimeMillis();
+				+ categoryId + " and r.reportTime >" + criticalTime
+				+ " ORDER BY r.reportTime descending";
 		@SuppressWarnings("unchecked")
 		List<Report> list = (List<Report>) sm.getAll(query);
 		return list;
 	}
-	
+
 	/**
 	 * get certain user's reports
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	public List<Report> reportFromCertainUser(long userId){
-		String query = "select r from Report r where r.userId="+userId+" ORDER BY r.reportId descending";
+	public List<Report> reportFromCertainUser(long userId) {
+		String query = "select r from Report r where r.userId=" + userId
+				+ " ORDER BY r.reportTime descending";
 		@SuppressWarnings("unchecked")
 		List<Report> list = (List<Report>) sm.getAll(query);
 		return list;
 	}
-	
+
 	/**
 	 * get a detailed report
+	 * 
 	 * @param reportId
 	 * @return
 	 */
-	public Report certainReport(long reportId){
-		String query = "select r from Report r where r.reportId="+reportId;
-		@SuppressWarnings("unchecked")
-		List<Report> list = (List<Report>) sm.getAll(query);
-		return list.get(0);
+	public Report certainReport(long reportId) {
+		Report report = (Report) sm.get(Report.class, reportId);
+		return report;
 	}
 }

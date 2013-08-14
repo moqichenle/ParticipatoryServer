@@ -2,22 +2,36 @@
 
 <datastore-indexes>
 
-    <!-- Used 8 times in query history -->
-    <datastore-index kind="Query" ancestor="false" source="auto">
-        <property name="userId" direction="asc"/>
-        <property name="__key__" direction="desc"/>
-    </datastore-index>
+	<!-- Used 8 times in query history -->
+	<datastore-index kind="Query" ancestor="false" source="manual">
+		<property name="userId" direction="asc" />
+		<property name="queryTime" direction="desc" />
+	</datastore-index>
 
-    <!-- Used 6 times in query history -->
-    <datastore-index kind="TaskAssignment" ancestor="false" source="auto">
-        <property name="userId" direction="asc"/>
-        <property name="taskId" direction="desc"/>
-    </datastore-index>
+	<!-- Used 6 times in query history -->
+	<datastore-index kind="TaskAssignment" ancestor="false"
+		source="manual">
+		<property name="userId" direction="asc" />
+		<property name="taskId" direction="desc" />
+	</datastore-index>
 
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="Report" ancestor="false" source="auto">
-        <property name="userId" direction="asc"/>
-        <property name="__key__" direction="desc"/>
-    </datastore-index>
-
+	<!-- Used 1 time in query history -->
+	<datastore-index kind="Report" ancestor="false" source="manual">
+		<property name="userId" direction="asc" />
+		<property name="reportTime" direction="desc" />
+	</datastore-index>
+	<datastore-index kind="Report" ancestor="false" source="manual">
+		<property name="categoryId" direction="asc" />
+		<property name="reportTime" direction="desc" />
+	</datastore-index>
+	<datastore-index kind="TaskModel" ancestor="false"
+		source="manual">
+		<property name="categoryId" direction="asc" />
+		<property name="status" direction="asc" />
+		<property name="createdTime" direction="asc" />
+	</datastore-index>
+	<datastore-index kind="User" ancestor="false" source="manual">
+		<property name="hasSensor" direction="asc" />
+		<property name="updatedTime" direction="asc" />
+	</datastore-index>
 </datastore-indexes>
